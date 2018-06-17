@@ -10,5 +10,6 @@ guessNumber
 takeFromYUsbDisk
 从U盘里拷贝所有文件到指定路径
 
-
+memo
+便签应用
 
