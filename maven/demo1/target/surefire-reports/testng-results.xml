@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="com.xucc.demo.SayHelloAppTest" duration-ms="74" started-at="2018-07-01T08:02:58Z" finished-at="2018-07-01T08:02:58Z">
+    <groups>
+    </groups>
+    <test name="Command line test" duration-ms="74" started-at="2018-07-01T08:02:58Z" finished-at="2018-07-01T08:02:58Z">
+      <class name="com.xucc.demo.SayHelloAppTest">
+        <test-method status="PASS" signature="test()[pri:0, instance:com.xucc.demo.SayHelloAppTest@3ac3fd8b]" name="test" duration-ms="27" started-at="2018-07-01T08:02:58Z" finished-at="2018-07-01T08:02:58Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- test -->
+      </class> <!-- com.xucc.demo.SayHelloAppTest -->
+    </test> <!-- Command line test -->
+  </suite> <!-- com.xucc.demo.SayHelloAppTest -->
+</testng-results>

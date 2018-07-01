@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+
+    <!-- 项目描述 -->
+    <groupId>com.xucc</groupId>
+    <artifactId>maven-demo</artifactId>
+    <version>1.0.0</version>
+    <!-- 打包方式 -->
+    <packaging>jar</packaging>
+    <name>jdbc</name>
+    <description>jdbcmaven示例</description>
+
+    <!-- 自定义变量 -->
+    <properties>
+        <encoding>UTF-8</encoding>
+        <java>1.8</java>
+    </properties>
+
+    <!-- 添加依赖 -->
+    <dependencies>
+        <!-- junit依赖 -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- testng依赖 -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <!-- 配置信息 -->
+    <build>
+        <plugins>
+            <!-- 编译配置 -->
+            <plugin>
+                <!-- 官方：maven-name-plugin -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <encoding>${encoding}</encoding>
+                    <source>${java}</source>
+                    <target>${java}</target>
+                </configuration>
+            </plugin>
+
+            <!-- 数据库依赖配置 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.1</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependency</id>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <!--复制依赖包到target目录下的lib目录-->
+                            <outputDirectory>
+                                ${project.build.directory}/lib
+                            </outputDirectory>
+                            <!--复制运行时的依赖包-->
+                            <includeScope>runtime</includeScope>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- 打包配置 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <archive>
+                        <mainfest>
+                            <addClasspath>true</addClasspath>
+                            <!-- jar包的主类 -->
+                            <mainClass>com.bittech.jdbc.MemoGroupApp</mainClass>
+                            <addExtensions>true</addExtensions>
+                            <!-- classpath的目录前缀 -->
+                            <classpathPrefix>lib</classpathPrefix>
+                        </mainfest>
+                        <manifestEntries>
+                            <Implementation-Title>${project.name}</Implementation-Title>
+                            <Implementation-Version>${project.version}</Implementation-Version>
+                            <Implementation-Vendor-Id>${project.groupId}</Implementation-Vendor-Id>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
