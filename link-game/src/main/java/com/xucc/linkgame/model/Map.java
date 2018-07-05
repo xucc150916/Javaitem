@@ -2,6 +2,7 @@ package com.xucc.linkgame.model;
 
 import com.xucc.linkgame.Setting;
 
+import java.lang.reflect.Array;
 import java.util.Random;
 
 /**
@@ -187,11 +188,140 @@ public class Map {
      * @return
      */
     public boolean oneConnerWithoutValue(ArrayPoint p1, ArrayPoint p2) {
+        // p1水平方向与p2的拐点
         ArrayPoint p1Horizontal = new ArrayPoint(p1.i, p2.j, map[p1.i][p2.j]);
+        // p1垂直方向与p2的拐点
         ArrayPoint p1Vertical = new ArrayPoint(p2.i, p1.j, map[p2.i][p1.j]);
 
         if(horizonMatch(p1, p1Horizontal) && p1Horizontal.value==0) {
-            // TODO
+            if(this.verticalMatch(p1Horizontal, p2)) {
+                return true;
+            }
         }
+        if(verticalMatch(p1, p1Vertical) && p1Vertical.value==0) {
+            if(horizonMatch(p1Vertical, p2)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean oneConner(ArrayPoint p1, ArrayPoint p2) {
+        // p1水平方向与p2的拐点
+        ArrayPoint p1Horizontal = new ArrayPoint(p1.i, p2.j, map[p1.i][p2.j]);
+        // p1垂直方向与p2的拐点
+        ArrayPoint p1Vertical = new ArrayPoint(p2.i, p1.j, map[p2.i][p1.j]);
+
+        if(p1.value != p2.value) {
+            return false;
+        }
+
+        if(oneConnerWithoutValue(p1, p2)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * 带两个拐点的情况
+     * @param p1
+     * @param p2
+     * @return
+     */
+    public boolean twoConner(ArrayPoint p1, ArrayPoint p2) {
+        if(p1.value != p2.value) {
+            return false;
+        }
+
+        int count = 0;
+        ArrayPoint tmp = null;
+
+        // 左
+        for(int col = p1.j-1; col >= 0; col--) {
+            tmp = new ArrayPoint(p1.i, col, map[p1.i][col]);
+            if(tmp.value==0 && this.oneLineWithoutValue(p1, tmp)) {
+               if(this.oneConnerWithoutValue(tmp, p2)) {
+                   return true;
+               }
+            }  else {
+                break;
+            }
+        }
+
+        count = Setting.COLS + 2 - p1.j;
+        for (int col = p1.j; col < Setting.COLS + 2; col++)
+        {
+            tmp = new ArrayPoint(p1.i, col, map[p1.i][col]);
+            if ((tmp.value == 0) && oneLineWithoutValue(p1, tmp))
+            {
+                if (oneConnerWithoutValue(tmp, p2))
+                {
+                    return true;
+                }
+            }
+        }
+        // 上
+        count = p1.i;
+        for (int row = count - 1; row >= 0; row--)
+        {
+            tmp = new ArrayPoint(row, p1.j, map[row][p1.j]);
+            if ((tmp.value == 0) && oneLineWithoutValue(p1, tmp))
+            {
+                if (oneConnerWithoutValue(tmp, p2))
+                {
+                    return true;
+                }
+            }
+        }
+        // 下
+        for (int row = p1.i + 1; row < Setting.ROWS + 2; row++)
+        {
+            tmp = new ArrayPoint(row, p1.j, map[row][p1.j]);
+            if ((tmp.value == 0) && oneLineWithoutValue(p1, tmp))
+            {
+                if (oneConnerWithoutValue(tmp, p2))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 判断两个点是否匹配，包括直线，一个拐点，两个拐点
+     * @param p1
+     * @param p2
+     * @return
+     */
+    public boolean match(ArrayPoint p1, ArrayPoint p2) {
+        if(this.isSameOne(p1, p2)) {
+            return false;
+        }
+
+        if(oneLine(p1, p2)) {
+            this.map[p1.i][p1.j] = 0;
+            this.map[p2.i][p2.j] = 0;
+            // 总面积-2
+            LEFTCOUNT -= 2;
+        }
+
+        if(oneConner(p1, p2)) {
+            this.map[p1.i][p1.j] = 0;
+            this.map[p2.i][p2.j] = 0;
+            // 总面积-2
+            LEFTCOUNT -= 2;
+            return true;
+        }
+
+        if(twoConner(p1, p2)) {
+            this.map[p1.i][p1.j] = 0;
+            this.map[p2.i][p2.j] = 0;
+            // 总面积-2
+            LEFTCOUNT -= 2;
+            return true;
+        }
+        return false;
     }
 }
