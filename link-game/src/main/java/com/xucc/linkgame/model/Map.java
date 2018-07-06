@@ -2,7 +2,6 @@ package com.xucc.linkgame.model;
 
 import com.xucc.linkgame.Setting;
 
-import java.lang.reflect.Array;
 import java.util.Random;
 
 /**
@@ -15,7 +14,7 @@ public class Map {
     // 地图
     private int[][] map = new int[Setting.ROWS+2][Setting.COLS+2];
 
-    // 出现的不同图片个数
+    // 每种图片重复数量为4，总共8*8=64个格子，16组
     private  int maxKinds = 4;
 
     // 创建地图的时候在构造里进行初始化
@@ -37,11 +36,13 @@ public class Map {
 
         // 四个点同一个图片，总共16组
         for(int i = 0; i < len/maxKinds; i++) {
-            tempArr[i] = i+1;
-            tempArr[i+1] = i+1;
-            tempArr[i+2] = i+1;
-            tempArr[i+3] = i+1;
+            System.out.println(i);
+            tempArr[i*4] = i+1;
+            tempArr[i*4+1] = i+1;
+            tempArr[i*4+2] = i+1;
+            tempArr[i*4+3] = i+1;
         }
+
 
         // 打乱数组
         random(tempArr);
@@ -52,6 +53,14 @@ public class Map {
                 this.map[i][j] = tempArr[(i-1)*Setting.COLS + (j-1)];
             }
         }
+
+        // 测试生成的随机数值
+//        for(int i = 0; i < map.length; i++) {
+//            for(int j = 0; j < map[0].length; j++) {
+//                System.out.println("map["+i+"]["+j+"]"+map[i][j]);
+//            }
+//        }
+
     }
 
     /**
@@ -305,6 +314,7 @@ public class Map {
             this.map[p2.i][p2.j] = 0;
             // 总面积-2
             LEFTCOUNT -= 2;
+            return true;
         }
 
         if(oneConner(p1, p2)) {

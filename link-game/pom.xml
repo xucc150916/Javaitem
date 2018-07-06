@@ -81,7 +81,7 @@
                             <addClasspath>true</addClasspath>
                             <!-- jar包的主类 -->
                             <!-- 主类待定 -->
-                            <!--<mainClass>com.xucc.linkgame</mainClass>-->
+                            <mainClass>com.xucc.linkgame.UI.GameMine</mainClass>
                             <addExtensions>true</addExtensions>
                             <!-- classpath的目录前缀 -->
                             <classpathPrefix>lib</classpathPrefix>
