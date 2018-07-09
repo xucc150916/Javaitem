@@ -11,7 +11,7 @@ public class Setting {
     // 界面素材文件的后缀
     public static final String RELEX = ".gif";
     // 花费时间
-    public static final int PERTIME = 10;
+    public static final int PERTIME = 600;
     // 判断的时间间隔
     public static final int PER = 1;
     // 炸弹使用次数
