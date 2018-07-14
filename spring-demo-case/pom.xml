@@ -8,7 +8,22 @@
     <artifactId>spring-demo-case</artifactId>
     <version>1.0.0</version>
 
+    <build>
+        <plugins>
+            <!-- 设置编译等级 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>6</source>
+                    <target>6</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
+
+    <!-- 添加spring依赖 -->
     <dependencyManagement>
         <dependencies>
             <dependency>
