@@ -37,7 +37,7 @@ public class InversePolish {
     private static final int PRIORITY_ONE = 1;
 
     /**
-     * 在构造方法里将传进来的逆波兰式进行切分
+     * 在构造方法里将传进来的中序表达式进行切分
      * @param str 逆波兰表达式字符串
      */
     public InversePolish(String str) {
