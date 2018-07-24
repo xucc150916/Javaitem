@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <bean id="guessNumber" class="com.xucc.spring3.common.GuessNumber" scope="prototype">
+        <property name="number" value="#{T(java.lang.Math).random()}"/>
+    </bean>
+
+    <!-- 内置bean获取系统属性 -->
+    <bean id="systemPropertiesBean" class="com.xucc.spring3.spel.SystemPropertiesBean">
+        <property name="classPath" value="#{systemProperties['java.class.path']}"/>
+        <property name="javaHome" value="#{systemProperties['java.home']}"/>
+        <property name="javaVersion" value="#{systemProperties['java.vendor']}"/>
+        <property name="osName" value="#{systemProperties['os.name']}"/>
+    </bean>
+
+    <!-- 内置bean获取环境变量 -->
+    <bean id="systemEnvironmentBean" class="com.xucc.spring3.spel.SystemEnvironmentBean">
+        <property name="path" value="#{systemEnvironment['Path']}"/>
+        <property name="appData" value="#{systemEnvironment['APPDATA']}"/>
+        <property name="systemDriver" value="#{systemEnvironment['SystemDriver']}"/>
+    </bean>
+
+    <context:component-scan base-package="com.xucc.spring3.common"/>
+
+    <util:properties id="properties" location="database.properties"/>
+
+    <!-- 使用PropertyPlaceholderConfigure配置属性文件，这里bean不用加id -->
+    <!-- 单个资源文件 -->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="fileEncoding" value="UTF-8"/>
+        <property name="location" value="database.properties"/>
+    </bean>
+
+    <!-- 多个资源文件 -->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <!-- 这里可以载入硬盘上的文件，ClassPath上的文件以及网络上的文件 -->
+                <value>classpath:database.properties</value>
+                <value>classpath:lesson.properties</value>
+            </list>
+        </property>
+        <property name="fileEncoding" value="UTF-8"/>
+    </bean>
+
+    <!-- MyResource -->
+    <bean id="myResource" class="com.xucc.spring3.common.MyResource">
+    </bean>
+
+</beans>
