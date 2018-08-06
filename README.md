@@ -27,3 +27,6 @@ maven编程
 
 spring-demo-case
 spring项目
+
+student-manager
+java-web学生信息管理系统
