@@ -1,0 +1,15 @@
+# 和 .properties 一样，都是配置文件，只不过是分级形式的
+server:
+  servlet:
+    # 本项目所有访问的前缀
+    context-path: /wechat_sell
+spring:
+  # 数据库配置
+  datasource:
+    username: root
+    password: xucc
+    url: jdbc:mysql://localhost:3306/sell?useSSL=false
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    show-sql: true
+    open-in-view: true
