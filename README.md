@@ -1,3 +1,6 @@
+weixin_sell
+微信公众号项目
+
 calculator
 带有GUI的计算器
 
@@ -30,3 +33,4 @@ spring项目
 
 student-manager
 java-web学生信息管理系统
+
